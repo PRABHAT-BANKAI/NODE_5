@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Resigration Page</h1>
+
+    <table border="">
+      <form action="/adddata" method="post">
+        <tr>
+          <td>Name</td>
+          <td><input name="userName" type="text" /></td>
+        </tr>
+        <tr>
+          <td>Age</td>
+          <td><input name="age" type="text" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button>Submit</button></td>
+        </tr>
+      </form>
+    </table>
+
+    <table border="">
+      <thead>
+        <th>Name</th>
+        <th>age</th>
+        <th>action</th>
+      </thead>
+      <tbody>
+        <% record.forEach((item,index)=>{ %>
+
+        <tr>
+          <td><%= item.userName %></td>
+          <td><%= item.age %></td>
+          <td>
+            <a href="/delete/<%= index %>"> <button>Delete</button></a>
+             <a href="/edit/<%= index %>"> <button>Edit</button></a>
+          </td>
+        </tr>
+
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>
