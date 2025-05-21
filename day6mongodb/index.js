@@ -1,24 +1,27 @@
 const express = require("express");
 const connection = require("./config/db");
-const UserModel = require("./model/UserModel");
+const UserModel = require("./models/UserModel");
+
 const port = 8080;
 const app = express();
 
+app.set("view engine", "ejs");
+
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("welcome database");
+
+  // let allUserData = UserModel.find({})
+  res.render("Home");
 });
 
 app.post("/", async (req, res) => {
-  console.log(req.body);
   try {
     await UserModel.create(req.body);
-
-    res.send("user added successfully");
+    return res.send("user added successfully");
   } catch (error) {
-    res.send(error);
+    return res.send(error);
   }
 });
 
