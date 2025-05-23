@@ -5,26 +5,26 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  email: {
-    type: String,
-    require: true,
-  },
-  password: {
-    type: String,
-    require: true,
-  },
-  gender: {
-    type: String,
-    require: true,
-  },
-  city: {
-    type: String,
-    require: true,
-  },
-  imagePath: {
-    type: String,
-    require: true,
-  },
+  // email: {
+  //   type: String,
+  //   require: true,
+  // },
+  // password: {
+  //   type: String,
+  //   require: true,
+  // },
+  // gender: {
+  //   type: String,
+  //   require: true,
+  // },
+  // city: {
+  //   type: String,
+  //   require: true,
+  // },
+  // imagePath: {
+  //   type: String,
+  //   require: true,
+  // },
 });
 
 const UserModel = mongoose.model("smit", userSchema);

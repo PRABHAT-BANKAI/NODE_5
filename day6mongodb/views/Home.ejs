@@ -9,12 +9,12 @@
     <h1>User Data</h1>
 
     <table border="">
-      <form action="/addData" method="post" enctype="multipart/form-data">
+      <form action="/addData" method="post">
         <tr>
           <td>User Name</td>
-          <td><input type="text" /></td>
+          <td><input type="text" name="userName" /></td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>Email</td>
           <td><input type="text" /></td>
         </tr>
@@ -30,8 +30,7 @@
           <td>City</td>
           <td>
             <select
-              name="
-"
+              name=""
               id=""
             >
               <option value="">Delhi</option>
@@ -43,28 +42,38 @@
         <tr>
           <td>Image</td>
           <td><input type="file" /></td>
-        </tr>
+        </tr> -->
         <tr>
           <td></td>
           <td><button>Submit</button></td>
         </tr>
       </form>
     </table>
-    <br>
-    <br>
+    <br />
+    <br />
 
     <table border="">
       <thead>
         <tr>
           <th>User Name</th>
-          <th>Email</th>
+           <th>Action</th>
+          <!-- <th>Email</th>
           <th>Password</th>
           <th>Gender</th>
           <th>City</th>
-          <th>Image</th>
+          <th>Image</th> -->
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <% allUserData.forEach((item)=>{ %>
+
+        <tr>
+          <td><%= item.userName %></td>
+          <td><a href="/delete/<%= item.id %>"><Button>Delete</Button></a></td>
+        </tr>
+
+        <% }) %>
+      </tbody>
     </table>
   </body>
 </html>
