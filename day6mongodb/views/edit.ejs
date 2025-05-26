@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Update section</h1>
+    <table border="">
+      <form action="/updateData" method="post">
+        <tr>
+          <input type="hidden" name="id" value="<%= userData.id %>">
+          <td>User Name</td>
+          <td><input type="text"   value="<%= userData.userName %>" name="userName" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button>Submit</button></td>
+        </tr>
+      </form>
+    </table>
+  </body>
+</html>
