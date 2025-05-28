@@ -41,8 +41,9 @@ app.post("/addData", upload, async (req, res) => {
   }
 });
 
-app.get("/delete/:id", async (req, res) => {
-  const id = req.params.id; // _id oops private
+app.get("/delete/", async (req, res) => {// query
+  // const id = req.params.id; // _id oops private
+  const id = req.query.id
 
   console.log(id);
 
