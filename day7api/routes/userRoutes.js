@@ -5,11 +5,7 @@ const UserModel = require("../models/UserModel");
 
 const userRoutes = express.Router();
 
-userRoutes.get("/", (req, res) => {
-  res.status(200).json({
-    message: "Welcome to the User API",
-  });
-});
+
 
 userRoutes.post(
   "/add",
@@ -48,5 +44,31 @@ userRoutes.post(
     }
   }
 );
+
+
+
+userRoutes.get("/all", async (req, res) => {
+  const { search, sortBy = "createdAt", sortOrder = "desc" } = req.query;//{ sortOrder,sortBy ,search}
+  console.log(sortOrder)
+
+  let filter = {};
+  if (search) {
+    filter = {
+      $or: [
+        { name: { $regex: search, $options: "i" } },
+        { email: { $regex: search, $options: "i" } },
+      ],
+    };
+  }
+
+  try {
+    const users = await UserModel.find(filter).sort({
+      [sortBy]: sortOrder === "asc" ? 1 : -1,//{email:-1}
+    });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 module.exports = userRoutes;
