@@ -71,4 +71,20 @@ userRoutes.get("/all", async (req, res) => {
   }
 });
 
+
+userRoutes.delete("/delete", async (req, res) => {
+  const { id } = req.query;
+  
+  if (!id) return res.status(400).json({ error: "ID is required" });
+console.log(id)
+  try {
+    const result = await UserModel.findByIdAndDelete(id);
+    console.log(result)
+    if (!result) return res.status(404).json({ error: "User not found" });
+    res.json({ success: true, deletedUser: result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = userRoutes;
