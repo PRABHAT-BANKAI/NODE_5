@@ -5,8 +5,6 @@ const UserModel = require("../models/UserModel");
 
 const userRoutes = express.Router();
 
-
-
 userRoutes.post(
   "/add",
   upload,
@@ -45,11 +43,18 @@ userRoutes.post(
   }
 );
 
-
-
 userRoutes.get("/all", async (req, res) => {
-  const { search, sortBy = "createdAt", sortOrder = "desc" } = req.query;//{ sortOrder,sortBy ,search}
-  console.log(sortOrder)
+  const {
+    search,
+    sortBy = "createdAt",
+    sortOrder = "desc",
+    page = 1,
+    limit = 10,
+  } = req.query; //{ sortOrder,sortBy ,search}
+  console.log(sortOrder);
+
+  const pageNum = parseInt(page);
+  const limitNum = parseInt(limit);
 
   let filter = {};
   if (search) {
@@ -62,24 +67,26 @@ userRoutes.get("/all", async (req, res) => {
   }
 
   try {
-    const users = await UserModel.find(filter).sort({
-      [sortBy]: sortOrder === "asc" ? 1 : -1,//{email:-1}
-    });
+    const users = await UserModel.find(filter)
+      .sort({
+        [sortBy]: sortOrder === "asc" ? 1 : -1, //{email:-1}
+      })
+      .skip((pageNum - 1) * limitNum)
+      .limit(limitNum);
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-
 userRoutes.delete("/delete", async (req, res) => {
   const { id } = req.query;
-  
+
   if (!id) return res.status(400).json({ error: "ID is required" });
-console.log(id)
+  console.log(id);
   try {
     const result = await UserModel.findByIdAndDelete(id);
-    console.log(result)
+    console.log(result);
     if (!result) return res.status(404).json({ error: "User not found" });
     res.json({ success: true, deletedUser: result });
   } catch (err) {
